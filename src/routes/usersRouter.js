@@ -63,7 +63,7 @@ router.post('/logout/', authMiddleware, usersController.logout); /* POST - Logou
 
 /*** EDIT ONE user ***/ 
 router.get('/:id/edit/', usersController.edit); /* GET - Form to create */
-// router.patch('/:id', usersController.update); /* PATCH - Update in DB */
+router.patch('/:id', usersController.update); /* PATCH - Update in DB */
 
 /*** DELETE ONE user***/ 
 router.delete('/:id', usersController.destroy); /* DELETE - Delete from DB */
