@@ -42,7 +42,7 @@ offers (req, res){
             meta:{
                 status:200,
                 count:8,
-                url:"/api/products/offer"
+                url:"/api/products/offers"
 
             },
             data:products

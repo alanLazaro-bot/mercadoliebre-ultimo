@@ -13,27 +13,39 @@ fetch("http://localhost:3000/api/products/latest").then(function(response){
 
 return response.json();
 }).then(function(data){
-    console.log(data.data)
-
-    for(let i=0;i>data.data.length;i++){
-       
-        
-        
-
-        latest.querySelector("section").innerHTML =  '<a href="/products/detail/' + data.data.id[i] + '">'
-
-        console.log(latest.section)
     
-        latest.querySelector("img").innerHTML =  '<img src="/images/products/' + data.data.image[i] + '" alt="' + data.data.name[i] + '"></img>'
-        latest.querySelector("article").innerHTML =  '<h2>$<%= helpers.trunc(' + data.data.price[i] + '-' +  data.data.price[i] + '*' + data.data.discount[i] +  '/ 100) %></h2>' + '<% if(' + data.data.discount[i] + '> 0) { %>'+ '<span><%=' +  data.data.discount[i] + ' %> % OFF</span>'+ '<% } %> <p><%=' + data.data.name+  '%></p><i class="fas fa-truck"></i>'
+    
+     if (data.data.length > 0) { 
 
-  
-    }
+        data.data.forEach(product => { 
 
+            latest.innerHTML += `
 
-   
-})
+            <div class="col-12 col-sm-6 col-lg-3">
+                <section class="product-box">
+                    <a href="/products/detail/`+ product.id + `"><figure class="product-box_image"> <img src="/images/products/`+ product.image + `"alt="` + product.name + 
+                    `"></figure><article class="product-box_data"><h2>$` + (product.price - product.price * product.discount %100) +`</h2>`
+                             
+                    if(product.discount > 0) { 
+                            + `<span>`+product.discount + `% OFF</span>`
+                             } +
+                            `<p><%= product.name %></p>
+                            <i class="fas fa-truck"></i>
+                        </article>
+                    </a>
+                </section>
+            </div>`
+            
+        })
+     } else { 
+        latest.innerHTML += `
 
+            <div class="col-12">
+                <h2 class="noproducts">Aun se encontraron productos</h2>
+            </div>`
+         } 
+
+        })       
 
 let offers = document.getElementById('offers-products')
 
@@ -44,18 +56,37 @@ fetch("http://localhost:3000/api/products/offers").then(function(response){
 }).then(function(data){
 
 
-    for(let i=0;i>data.data.length;i++){
+    if (data.data.length > 0) { 
+
+        data.data.forEach(product => { 
+
+            offers.innerHTML += `
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <section class="product-box">
+                    <a href="/products/detail/`+ product.id +`"><figure class="product-box_image"> <img src="/images/products/`+ product.image +`"alt="`+ product.name + 
+                    `"></figure><article class="product-box_data"><h2>$` + helpers.trunc(product.price - product.price * product.discount / 100) +`</h2> <span>`+product.discount + `% OFF</span>
+                              <p><%= product.name %></p>
+                            <i class="fas fa-truck"></i>
+                        </article>
+                    </a>
+                </section>
+            </div>`
+            
+        })
+     } else { 
+        offers.innerHTML += `
+
+            <div class="col-12">
+                <h2 class="noproducts">Aun se encontraron productos</h2>
+            </div>`
+         } 
+
+        })    
        
-        
-
-        offers.querySelector("section").innerHTML =  '<a href="/products/detail/' + data.data.id[i] + '">'
-    
-        offers.querySelector("img").innerHTML =  '<img src="/images/products/' + data.data.image[i] + '" alt="' + data.data.name[i] + '"></img>'
-        offers.querySelector("article").innerHTML =  '<h2>$<%= helpers.trunc(' + data.data.price[i] + '-' +  data.data.price[i] + '*' + data.data.discount[i] +  '/ 100) %></h2>' + '<% if(' + data.data.discount[i] + '> 0) { %>'+ '<span><%=' +  data.data.discount[i] + ' %> % OFF</span>'+ '<% } %> <p><%=' + data.data.name+  '%></p><i class="fas fa-truck"></i>'
-
-}
-
+       
 
 })
 
-})
+
+
