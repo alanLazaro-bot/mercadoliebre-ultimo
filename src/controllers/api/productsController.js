@@ -2,13 +2,15 @@ const { Product, Sequelize, Brand, Category } = require('../../database/models')
 const Op = Sequelize.Op;
 
 module.exports = {
+
 latest (req, res){
 
     Product.findAll({
         order: [
             ['createdAt', 'DESC']
         ],
-        limit: 8
+        limit:8
+      
     })
     .then(function(products){
 
@@ -21,6 +23,7 @@ latest (req, res){
             },
             data: products
         }
+        
         res.json(respuesta)
     })
 },
@@ -30,10 +33,13 @@ offers (req, res){
     Product.findAll({
         where: {
             discount: {
-                [Op.gt]: 50
+                [Op.gt]: 0
             }
         },
         limit: 8
+        
+        
+        
     })
     .then(function(products){
 
@@ -49,12 +55,9 @@ offers (req, res){
 
             
         }
-        res.json(respuesta)
-
-
         
-
-
+        res.json(respuesta)
+       
 
 })
 

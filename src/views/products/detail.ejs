@@ -60,7 +60,7 @@
 								<button type="submit" class="action-button delete">ELIMINAR</button>
 							</form>
 						<% } else { %>
-							<form action="/users/addToCart" method="POST" style="display: inline-bock">
+							<form action="/api/items/addToCart" method="POST"  id = "add-cart" style="display: inline-bock">
 								<label for="quantity" style="font-size: 14px;">Cantidad</label>
 								<input type="number" style="font-size: 14px;" id="quantity" name="quantity" value="1">
 								<p class="error"><%= typeof errors == 'undefined' ? '' : errors.quantity ? errors.quantity.msg : '' %></p>
@@ -75,10 +75,42 @@
 		</div>
 	</div>
 	<!-- /product detail -->
-
+	
 	<!-- footer -->
 	<%- include('../partials/footer') %>
 	<!-- /footer -->
+	<script>
 
+		let addItemForm = document.getElementById("add-cart")
+		
+			let quant = document.querySelector('input[name=quantity') 
+		
+			let prodId = document.querySelector('input[name=productId')
+		
+		   
+			let data = {
+				quant: quantity,
+				productId:prodId,
+			}
+			
+		
+			
+			addItemForm.addEvetListener('',function(){
+				axios('http://localhost:3000/api/items/addToCart',{
+				method:'POST',
+				data:info,
+			}).then(response =>{
+				console.log(response)
+				
+			})
+
+
+
+			})
+		
+				   
+		
+
+			</script> 
 </body>	
 </html>
