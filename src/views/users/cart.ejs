@@ -17,7 +17,7 @@
       </div>
       <div class="product-detail">
          <div class="row">
-            <div class="col-12 col-lg-8 pt-4">
+            <div class="col-12 col-lg-8 pt-4" id="cart-items">
                <% items.forEach(item => { %>
                
                <div class="col-12 mt-3">
@@ -33,7 +33,7 @@
                      </section>
                      <section class="col-3">
                         <p>Cantidad: <%= item.quantity %></p>
-                        <form action="/users/deleteFromCart" method="POST" class="mt-4">
+                        <form action="/users/deleteFromCart" method="POST" class="mt-4" id = "delete-item">
                            <input type="hidden" name="itemId" value="<%= item.id %>">
                            <button type="submit" class="action-button delete">ELIMINAR</button>
                         </form>
