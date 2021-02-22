@@ -6,8 +6,8 @@ const validator = require('../../middlewares/validator');
 
 
 
-router.post('/addToCart', authMiddleware, validator.addToCart,  apiItemsController.addToCart)
-//router.post('/deleteFromCart', authMiddleware, apiItemsController.deleteFromCart);
+router.post('/', authMiddleware, validator.addToCart, apiItemsController.addToCart) //Agregar , authMiddleware, validator.addToCart
+router.delete('/', authMiddleware, apiItemsController.deleteFromCart);
 
 
 module.exports = router;

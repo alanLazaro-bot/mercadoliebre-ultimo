@@ -194,7 +194,46 @@ module.exports = {
     });
   },
 
- 
+
+  addToCart(req, res) {
+    const errors = validationResult(req);
+
+    if (errors.isEmpty()) {
+      // Busco el producto que voy a agregar como Item.
+      Product.findByPk(req.body.productId, {
+        include: ["user"],
+      })
+        .then((product) => {
+          // Saco el valor del producto, teniendo en cuenta el descuento.
+
+          let price =
+            Number(product.discount) > 0
+              ? product.price - (product.price * product.discount) / 100
+              : product.price;
+
+          // Creo el Item de compra
+          return Item.create({
+            salePrice: price,
+            quantity: req.body.quantity,
+            subTotal: price * req.body.quantity,
+            state: 1,
+            userId: req.session.user.id,
+            sellerId: product.user.id,
+            productId: product.id,
+          });
+        })
+        .then((item) => res.redirect("/users/cart"))
+        .catch((e) => console.log(e));
+    } else {
+       Product.findByPk(req.body.productId, {
+         include: ["user"],
+       })
+         .then(product => {
+            return res.render('products/detail', {product, errors: errors.mapped()})
+         })
+    }
+  },
+
 
   deleteFromCart(req, res) {
     Item.destroy({

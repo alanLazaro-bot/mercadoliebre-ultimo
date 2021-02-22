@@ -44,7 +44,7 @@ return response.json();
                 latest.innerHTML += `
 
                 <div class="col-12">
-                <h2 class="noproducts">Aun se encontraron productos</h2>
+                <h2 class="noproducts">Aún se encontraron productos</h2>
                 </div>`
             }
     })       

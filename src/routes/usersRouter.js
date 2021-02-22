@@ -69,7 +69,7 @@ router.patch('/:id', usersController.update); /* PATCH - Update in DB */
 router.delete('/:id', usersController.destroy); /* DELETE - Delete from DB */
 
 router.get('/cart', authMiddleware, usersController.cart);
-//router.post('/addToCart', authMiddleware, validator.addToCart, usersController.addToCart);
+router.post('/addToCart', authMiddleware, validator.addToCart, usersController.addToCart);
 router.get('/history', authMiddleware, usersController.history);
 router.post('/shop', authMiddleware, usersController.shop);
 router.post('/deleteFromCart', authMiddleware, usersController.deleteFromCart);

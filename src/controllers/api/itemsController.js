@@ -1,5 +1,4 @@
-const bycrypt = require("bcryptjs");
-const crypto = require("crypto");
+
 const { validationResult } = require("express-validator");
 
 // ******** Sequelize ***********
@@ -49,8 +48,8 @@ module.exports = {
               },
               data: item
           }
-         
-          res.json(respuesta)
+         console.log(respuesta)
+         return res.json(respuesta)
       })
         
         .catch((e) => console.log(e));
@@ -71,8 +70,17 @@ module.exports = {
       },
       force: true,
     })
-      .then((response) => res.redirect("/users/cart"))
-      .catch((e) => console.log(e));
-  },
-
+    .then(response => {
+      if (response > 0) {
+          res.json({
+              status: 201
+          })
+      } else {
+          console.log('error')
+      }
+  })
+  .catch(err => {
+      res.send(err.message)
+  });
+}
 }
