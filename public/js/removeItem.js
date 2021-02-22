@@ -1,7 +1,8 @@
 window.addEventListener('load', function () {
 
 
-    let delItem = document.querySelector('#delete-item') 
+    let delItem = document.querySelector('#delete-item')
+    let productId = document.querySelector('input[name=productId]'); 
 
          delItem.addEventListener('click',function(e){
             
